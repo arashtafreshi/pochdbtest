@@ -1,0 +1,53 @@
+<p>
+  projects-grid works!
+</p>
+<button (click)="getProjects()">Get Projects</button>
+
+<div *ngIf="projects.length === 0">
+  No Projects available!
+</div>
+
+<div *ngIf="projects?.length > 0">
+
+  <table [ngClass]="(['table table-condenced table-hover table-sm table-responsive'])">
+    <thead [ngClass]="(['thead-dark'])">
+      <tr>
+        <th></th>
+        <th>_id</th>
+        <th>_rev</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Created On</th>
+        <th>Is Deleted</th>
+        <th>Deleted On</th>
+        <th>Primary Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects; index as index">
+        <td>{{index+1}}</td>
+        <td>{{project._id}}</td>
+        <td>{{project._rev}}</td>
+        <td>{{project.name}}</td>
+        <td>{{project.type}}</td>
+        <td>{{project.description}}</td>
+        <td>{{project.dateCreated}}</td>
+        <td>{{project.isDeleted}}</td>
+        <td>{{project.dateDeleted}}</td>
+        <td>{{project.primaryImage}}</td>
+        <td>
+          <div>
+            <button [ngClass]="(['fa fa-eye btn btn-success'])" (click)="onOpenClicked(project._id)"></button>
+            <button [ngClass]="(['fa fa-pencil btn btn-default'])" (click)="onEditClicked(project._id)"></button>
+            <button [ngClass]="(['fa fa-trash btn btn-danger'])" (click)="onDeleteClicked(project._id)"></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+</div>

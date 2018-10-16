@@ -1,0 +1,40 @@
+<p>
+  excel works!
+</p>
+<h1 *ngIf="selectedNode!==null">{{selectedNode.data.replace('_',' ')}}</h1>
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+</div>
+<!--<button (click)="readExcel2()">Get Excel</button>
+<button (click)="getFile()">Get File</button>-->
+
+<div *ngIf="parsedData !== null">
+
+  <table [ngClass]="(['table table-condenced table-hover table-sm table-responsive'])">
+    <thead [ngClass]="(['thead-dark'])">
+      <tr>
+        <th></th>
+        <th>construction</th>
+        <th>county</th>
+        <th>line</th>
+        <th>point_latitude</th>
+        <th>point_longitude</th>
+        <th>policyID</th>
+        <th>statecode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of parsedData | slice:0:10; index as index">
+        <td>{{index+1}}</td>
+        <td>{{record.construction}}</td>
+        <td>{{record.county}}</td>
+        <td>{{record.line}}</td>
+        <td>{{record.point_latitude}}</td>
+        <td>{{record.point_longitude}}</td>
+        <td>{{record.policyID}}</td>
+        <td>{{record.statecode}}</td>
+
+      </tr>
+    </tbody>
+  </table>
