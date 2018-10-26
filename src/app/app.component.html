@@ -1,16 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<app-top-toolbar></app-top-toolbar>
 
-<div [ngClass]="(['container-fluid'])">
-  <div [ngClass]="(['row'])">
-    <div [ngClass]="(['col-md-3'])">
-      <app-categories (selectedNodeChange)="onSelectedNodeChange($event)"></app-categories>
-    </div>
-    <div [ngClass]="(['col-md-9'])">
-      <!--<app-dbui></app-dbui>-->
-      <!--<app-projects-grid></app-projects-grid>-->
-      <app-excel [node]="selectedNode"></app-excel>
 
-    </div>
-  </div>
-
-</div>
+<router-outlet></router-outlet>

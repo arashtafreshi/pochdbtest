@@ -33,7 +33,6 @@
     "zone.js": "^0.8.14",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
-    "primeicons": "^1.0.0-beta.10",
     "flag-icon-css": "^3.2.0",
     "csvtojson": "^2.0.8"
   },

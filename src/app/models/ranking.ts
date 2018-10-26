@@ -7,6 +7,6 @@ export class Ranking {
     isDeleted:boolean;
     description:string;
     year:number;
-    releaseDate:Date;
+    releaseDate:number;
     visible:boolean;
 }

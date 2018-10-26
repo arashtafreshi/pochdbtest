@@ -20,8 +20,8 @@ export class DbService {
     });
   }
 
-  getDocumentById(id:string){
-    return this.db.find(id);
+  getDocumentById(id:string):Promise<any>{
+    return this.db.get(id);
   }
 
   //=========================================== Project ============
@@ -65,18 +65,23 @@ export class DbService {
   }
   
 //============================================ attachments =============
-  saveAttachement(id:string, name:string, contentType:string, data){
+  saveAttachement(doc:any, contentType:string, data){
     debugger;
     let attachObj = {};
-    attachObj[name] = {
-      content_type: data.type,
+    attachObj[doc._id] = {
+      content_type: doc.type,
       data: data
     }
-    this.db.put({
-      _id: id,
-      _attachments: attachObj
-    });
 
+    this.getDocumentById(doc._id).then(
+      data=>{
+        doc._attachments = attachObj;
+        this.db.put(doc);
+      },
+      error=>{
+        console.error(error);
+      }
+    );
   }
 
   getFile(id:string):Promise<any>{
