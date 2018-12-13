@@ -3,6 +3,7 @@ import { Project } from '../models/project';
 import PouchDB from 'pouchdb';
 import PouchDBfind from 'pouchdb-find';
 import { Ranking } from '../models/ranking';
+import { promise } from 'protractor';
 
 const databaseName = "myPouchTestDb";
 const uuidv1 = require('uuid/v1');
@@ -63,6 +64,7 @@ export class DbService {
       return db.remove(doc);
     });
   }
+
   
 //============================================ attachments =============
   saveAttachement(doc:any, contentType:string, data){
