@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from "@angular/forms"
 
 import { AppComponent } from './app.component';
 import { DbuiComponent } from './dbui/dbui.component';
@@ -16,6 +17,7 @@ import { MenubarModule } from 'primeng/menubar';
 import {MenuModule} from 'primeng/menu';
 import { RoutingModule } from './moudules/routing/routing.module';
 import { ExcelPageComponent } from './component/excel-page/excel-page.component';
+import { ExcelColumnListComponent } from './component/excel-column-list/excel-column-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { ExcelPageComponent } from './component/excel-page/excel-page.component'
     ProjectsGridComponent,
     CategoriesComponent,
     TopToolbarComponent,
-    ExcelPageComponent
+    ExcelPageComponent,
+    ExcelColumnListComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { ExcelPageComponent } from './component/excel-page/excel-page.component'
     TreeModule,
     MenubarModule,
     MenuModule,
-    RoutingModule
+    RoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

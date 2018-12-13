@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as csv2json from 'csvtojson';
 import { DbService } from '../../services/db.service';
@@ -17,6 +17,7 @@ export class ExcelComponent implements OnInit {
   selectedNode: TreeNode;
   parsedData: any = null;
   rank: Ranking;
+  allColumns: string[] = [];
 
   constructor(private http: HttpClient, private db: DbService) { }
 
@@ -26,46 +27,55 @@ export class ExcelComponent implements OnInit {
     this.rank = null;
   }
 
+  @Output() gotAllRankingColumns: EventEmitter<any> = new EventEmitter();
+
   @Input()
   set node(node: TreeNode) {
     let that = this;
     this.selectedNode = node;
-      this.db.getDocumentById(node.data).then(
-        data=>{
-          debugger;
-          if (data === null || data.type!=="ranking") {
-            let rank:Ranking = {
-              _id: node.data,
-              _rev: data._rev,
-              dateCreated: Date.now(),
-              isDeleted: false,
-              description: "newProject",
-              _attachments: null,
-              releaseDate: Date.now(),
-              visible: true,
-              year: 2018,
-              type: "ranking"
-            }
-            that.rank = this.db.createNewRanking(rank);
-          } else {
-            that.rank = data;
-            this.readExcel();
+    this.db.getDocumentById(node.data).then(
+      data => {
+        debugger;
+        if (data === null || data.type !== "ranking") {
+          let rank: Ranking = {
+            _id: node.data,
+            _rev: data._rev,
+            dateCreated: Date.now(),
+            isDeleted: false,
+            description: "newProject",
+            _attachments: null,
+            releaseDate: Date.now(),
+            visible: true,
+            year: 2018,
+            type: "ranking",
+            columns: []
           }
-        },
-        error=>{
-
+          that.rank = this.db.createNewRanking(rank);
+        } else {
+          that.rank = data;
+          this.readExcel();
         }
-      );
-      
+      },
+      error => {
+
+      }
+    );
+
   }
 
 
 
   readExcel() {
+    var that = this;
     this.db.getFile(this.rank._id).then(
       data => {
         csv2json().fromString(atob(data._attachments[data._id].data)).then(
-          dt => { console.log(dt); this.parsedData = dt; },
+          dt => {
+            console.log(dt); this.parsedData = dt;
+            that.allColumns = Object.keys(this.parsedData[0]);
+            this.gotAllRankingColumns.emit(that.allColumns);
+            this.db.createNewRanking(that.rank);
+          },
           error => { console.error(error); this.parsedData = null; }
         );
       },

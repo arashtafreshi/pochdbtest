@@ -9,4 +9,5 @@ export class Ranking {
     year:number;
     releaseDate:number;
     visible:boolean;
+    columns:string[];
 }

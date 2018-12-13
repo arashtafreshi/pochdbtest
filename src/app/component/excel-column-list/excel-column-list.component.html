@@ -1,0 +1,13 @@
+<p>
+  excel-column-list works!
+</p>
+<ul class="list-group">
+  <li *ngFor="let col of allColumns" class="list-group-item">
+      <input type="checkbox" [(ngModel)]="checkboxes[col]">
+    {{col}}
+  </li>
+  <li class="list-group-item">
+    <input type="text" [(ngModel)]="newColumn" placeholder="Add Column">
+    <button (click)="addColumn()">Add</button>
+  </li>
+</ul>
