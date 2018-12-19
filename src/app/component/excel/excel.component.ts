@@ -57,7 +57,20 @@ export class ExcelComponent implements OnInit {
         }
       },
       error => {
-
+        let rank: Ranking = {
+          _id: node.data,
+          _rev: null,
+          dateCreated: Date.now(),
+          isDeleted: false,
+          description: "newProject",
+          _attachments: null,
+          releaseDate: Date.now(),
+          visible: true,
+          year: 2018,
+          type: "ranking",
+          columns: []
+        }
+        that.rank = this.db.createNewRanking(rank);
       }
     );
 

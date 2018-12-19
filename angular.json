@@ -57,7 +57,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pouchdbtest:build"
+            "browserTarget": "pouchdbtest:build",
+            "proxyConfig": "proxy.conf.json",
+            "port": 4220
           },
           "configurations": {
             "production": {
